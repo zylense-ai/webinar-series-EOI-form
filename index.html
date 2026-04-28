@@ -11,10 +11,9 @@
     <header class="hero-panel">
       <div class="hero-copy">
         <p class="tag">2026 Live Webinar Series</p>
-        <h1>AI Skill Classes With Practical Projects</h1>
+        <h1>Upcoming Webinars</h1>
         <p class="lead">
-          Pick any topic and join live classes with guided examples, workflow templates, and real use-cases.
-          Each webinar page now includes detailed curriculum, outcomes, and session-wise plan.
+          Explore the next sessions, topics, and outcomes planned for attendees.
         </p>
         <div class="badge-row">
           <span class="badge">7 Specialized Topics</span>
@@ -28,95 +27,112 @@
     </header>
 
     <section class="section card-surface">
-      <h2>Choose Your Webinar</h2>
+      <h2>Upcoming Webinars</h2>
+      <div class="date-selector-wrap">
+        <label for="main-date-select" class="date-selector-label">Select Date</label>
+        <select id="main-date-select" class="date-selector">
+          <option value="2026-05-07">May 7, 2026</option>
+          <option value="2026-05-10">May 10, 2026</option>
+          <option value="2026-05-16">May 16, 2026</option>
+          <option value="2026-05-17">May 17, 2026</option>
+          <option value="2026-05-23">May 23, 2026</option>
+          <option value="2026-05-24">May 24, 2026</option>
+          <option value="2026-05-30">May 30, 2026</option>
+          <option value="2026-05-31">May 31, 2026</option>
+        </select>
+      </div>
+      <p class="date-selector-helper">Webinars available for the selected date are shown below.</p>
+
+      <div id="date-webinar-options" class="date-webinar-options" aria-live="polite"></div>
+
       <div class="course-grid">
-        <a class="course-card" href="chatgpt.html">
+        <a class="course-card" href="chatgpt.html" data-title="ChatGPT Unlocked: From Zero to Daily Use in 90 Minutes" data-dates="2026-05-10,2026-05-24">
           <img src="images/chatgpt.svg" alt="ChatGPT webinar image">
           <div class="course-content">
-            <h3>ChatGPT</h3>
-            <p>Master prompting and practical AI writing workflows.</p>
+            <h3>ChatGPT Unlocked: From Zero to Daily Use in 90 Minutes</h3>
+            <p>Start from zero and build a practical prompt workflow for email, planning, writing, and research.</p>
             <div class="mini-meta">
               <span class="chip">Rs 99</span>
-              <span class="chip">May 10 &amp; 24</span>
-              <span class="chip">11:00 AM</span>
+              <span class="chip">90 min &bull; Beginner</span>
+              <span class="chip">Focus: Daily AI Usage</span>
             </div>
           </div>
         </a>
 
-        <a class="course-card" href="ai-agent.html">
+        <a class="course-card" href="ai-agent.html" data-title="Build Your First AI Employee: No-Code AI Agents That Work 24/7" data-dates="2026-05-17,2026-05-31">
           <img src="images/ai-agent.svg" alt="AI Agent webinar image">
           <div class="course-content">
-            <h3>AI Agent</h3>
-            <p>Design and deploy task-focused AI agents for real work.</p>
+            <h3>Build Your First AI Employee: No-Code AI Agents That Work 24/7</h3>
+            <p>Design and deploy no-code AI agents that handle repetitive tasks and escalate exceptions.</p>
             <div class="mini-meta">
               <span class="chip">Rs 999</span>
-              <span class="chip">May 17 &amp; 31</span>
-              <span class="chip">11:00 AM</span>
+              <span class="chip">90 min &bull; Intermediate</span>
+              <span class="chip">Focus: AI Agents</span>
             </div>
           </div>
         </a>
 
-        <a class="course-card" href="ai-image-video.html">
+        <a class="course-card" href="ai-image-video.html" data-title="Create Studio-Quality Content with AI: Images and Videos in Minutes" data-dates="2026-05-07,2026-05-23">
           <img src="images/ai-image-video.svg" alt="AI Image and Video webinar image">
           <div class="course-content">
-            <h3>AI Image and Video</h3>
-            <p>Create high-quality visual content fast with AI tools.</p>
+            <h3>Create Studio-Quality Content with AI: Images &amp; Videos in Minutes</h3>
+            <p>Build fast content pipelines for social posts, ads, explainer visuals, and short-form videos.</p>
             <div class="mini-meta">
               <span class="chip">Rs 499</span>
-              <span class="chip">May 7 &amp; 23</span>
-              <span class="chip">11:00 AM</span>
+              <span class="chip">90 min &bull; Beginner to Intermediate</span>
+              <span class="chip">Focus: Creative Production</span>
             </div>
           </div>
         </a>
 
-        <a class="course-card" href="ai-automation.html">
+        <a class="course-card" href="ai-automation.html" data-title="Automate Your Business: AI Workflows That Save Time and Money" data-dates="2026-05-17,2026-05-31">
           <img src="images/ai-automation.svg" alt="AI Automation webinar image">
           <div class="course-content">
-            <h3>AI Automation</h3>
-            <p>Automate repetitive tasks and save hours every week.</p>
+            <h3>Automate Your Business: AI Workflows That Save Time &amp; Money</h3>
+            <p>Map manual operations and convert them into scalable AI-powered workflows end-to-end.</p>
             <div class="mini-meta">
               <span class="chip">Rs 999</span>
-              <span class="chip">May 17 &amp; 31</span>
-              <span class="chip">4:00 PM</span>
+              <span class="chip">90 min &bull; Intermediate</span>
+              <span class="chip">Focus: Process Automation</span>
             </div>
           </div>
         </a>
 
-        <a class="course-card" href="productivity.html">
+        <a class="course-card" href="productivity.html" data-title="10X Your Day with AI: Personal Productivity Hacks That Actually Work" data-dates="2026-05-16,2026-05-30">
           <img src="images/productivity.svg" alt="Productivity webinar image">
           <div class="course-content">
-            <h3>Productivity</h3>
-            <p>Build a practical AI system for planning and execution.</p>
+            <h3>10X Your Day with AI: Personal Productivity Hacks That Actually Work</h3>
+            <p>Create a personal AI operating system for better execution, prioritization, and deep work.</p>
             <div class="mini-meta">
               <span class="chip">Rs 699</span>
-              <span class="chip">May 16 &amp; 30</span>
-              <span class="chip">11:00 AM</span>
+              <span class="chip">90 min &bull; Beginner</span>
+              <span class="chip">Focus: Productivity</span>
             </div>
           </div>
         </a>
 
-        <a class="course-card" href="toolkit.html">
+        <a class="course-card" href="toolkit.html" data-title="The Ultimate AI Toolkit: 25 Tools to Run a Smarter Business" data-dates="2026-05-10,2026-05-24">
           <img src="images/toolkit.svg" alt="Toolkit webinar image">
           <div class="course-content">
-            <h3>Toolkit</h3>
-            <p>Choose the best AI tools for your exact use-cases.</p>
+            <h3>The Ultimate AI Toolkit: 25 Tools to Run a Smarter Business</h3>
+            <p>Understand which AI tools to use for marketing, operations, analytics, and collaboration.</p>
             <div class="mini-meta">
               <span class="chip">Rs 299</span>
-              <span class="chip">May 10 &amp; 24</span>
-              <span class="chip">4:00 PM</span>
+              <span class="chip">90 min &bull; All Levels</span>
+              <span class="chip">Focus: Tool Stack</span>
             </div>
           </div>
         </a>
 
-        <a class="course-card" href="growth-engine.html">
+        <a class="course-card" href="growth-engine.html" data-title="AI Growth Engine: Generate Leads, Content and Conversions on Autopilot" data-dates="2026-05-17,2026-05-31">
           <img src="images/growth-engine.svg" alt="Growth Engine webinar image">
           <div class="course-content">
-            <h3>Growth Engine</h3>
-            <p>Build an AI-powered strategy for leads and conversion.</p>
+            <h3>AI Growth Engine: Generate Leads, Content &amp; Conversions on Autopilot</h3>
+            <p>Design an AI-driven growth system from audience discovery to conversion and follow-up.</p>
             <div class="mini-meta">
               <span class="chip">Rs 999</span>
-              <span class="chip">May 17 &amp; 31</span>
-              <span class="chip">4:00 PM</span>
+              <span class="chip">90 min &bull; Intermediate</span>
+              <span class="chip">Focus: Growth &amp; Marketing</span>
             </div>
           </div>
         </a>

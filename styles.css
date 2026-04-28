@@ -521,6 +521,97 @@ h1 {
   background: linear-gradient(130deg, rgba(59, 131, 248, 0.31), rgba(44, 210, 197, 0.22));
 }
 
+.date-selector-wrap {
+  margin-bottom: 0.8rem;
+}
+
+.date-selector-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #adc5e6;
+  font-weight: 700;
+}
+
+.date-selector {
+  width: min(360px, 100%);
+  border-radius: 12px;
+  border: 1px solid rgba(167, 204, 255, 0.45);
+  background: linear-gradient(160deg, rgba(20, 38, 69, 0.95), rgba(16, 30, 54, 0.82));
+  color: #eff6ff;
+  padding: 0.62rem 0.72rem;
+  font-size: 0.94rem;
+  outline: none;
+  box-shadow: 0 8px 18px rgba(0, 9, 27, 0.24);
+}
+
+.date-selector:focus {
+  border-color: rgba(104, 221, 209, 0.72);
+}
+
+.date-selector option {
+  color: #0f223f;
+  background: #ffffff;
+}
+
+.date-selector-helper {
+  margin: 0.35rem 0 0.65rem;
+  font-size: 0.84rem;
+  color: #bed0e8;
+}
+
+.date-webinar-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+  min-height: 56px;
+}
+
+.date-webinar-link {
+  display: block;
+  text-decoration: none;
+  border-radius: 14px;
+  border: 1px solid rgba(176, 209, 255, 0.34);
+  background: linear-gradient(165deg, rgba(23, 40, 71, 0.95), rgba(15, 29, 52, 0.85));
+  color: #f0f7ff;
+  padding: 0.72rem 0.78rem;
+  box-shadow: 0 10px 20px rgba(0, 8, 24, 0.24);
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.date-webinar-link:hover {
+  transform: translateY(-2px);
+  border-color: rgba(173, 226, 252, 0.68);
+}
+
+.date-webinar-link strong {
+  display: block;
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.date-webinar-link span {
+  display: block;
+  margin-top: 0.28rem;
+  font-size: 0.8rem;
+  color: #b7cdec;
+}
+
+.date-webinar-empty {
+  border-radius: 12px;
+  border: 1px dashed rgba(170, 206, 255, 0.38);
+  padding: 0.7rem 0.8rem;
+  color: #c6d7ef;
+  font-size: 0.88rem;
+}
+
+.course-card.is-hidden {
+  display: none !important;
+}
+
 .visual-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -809,6 +900,10 @@ h1 {
   .visual-grid {
     grid-template-columns: 1fr;
     gap: 0.7rem;
+  }
+
+  .date-webinar-options {
+    grid-template-columns: 1fr;
   }
 
   .course-card {

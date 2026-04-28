@@ -39,6 +39,64 @@ document.addEventListener("DOMContentLoaded", () => {
 
   mountIntroOverlay();
 
+  const initMainPageDateSelection = () => {
+    const dateSelect = document.getElementById("main-date-select");
+    const optionsHost = document.getElementById("date-webinar-options");
+    const webinarCards = Array.from(document.querySelectorAll(".course-card[data-dates]"));
+
+    if (!dateSelect || !optionsHost || webinarCards.length === 0) {
+      return;
+    }
+
+    const buildOptionList = (cards, dateLabel) => {
+      if (cards.length === 0) {
+        optionsHost.innerHTML = `<div class="date-webinar-empty">No webinar found for ${dateLabel}.</div>`;
+        return;
+      }
+
+      const html = cards.map((card) => {
+        const title = card.dataset.title || card.querySelector("h3")?.textContent?.trim() || "Webinar";
+        const href = card.getAttribute("href") || "#";
+        const focus = card.querySelector(".mini-meta .chip:last-child")?.textContent?.trim() || "";
+        return `
+          <a class="date-webinar-link" href="${href}">
+            <strong>${title}</strong>
+            <span>${focus}</span>
+          </a>
+        `;
+      }).join("");
+
+      optionsHost.innerHTML = html;
+    };
+
+    const applyDate = () => {
+      const selectedDate = dateSelect.value;
+      const selectedLabel = dateSelect.options[dateSelect.selectedIndex]?.text || selectedDate;
+      const visibleCards = [];
+
+      webinarCards.forEach((card) => {
+        const dates = (card.dataset.dates || "").split(",").map((item) => item.trim());
+        const matched = dates.includes(selectedDate);
+        card.classList.toggle("is-hidden", !matched);
+        if (matched) {
+          visibleCards.push(card);
+        }
+      });
+
+      buildOptionList(visibleCards, selectedLabel);
+    };
+
+    const queryDate = new URLSearchParams(window.location.search).get("date");
+    if (queryDate && Array.from(dateSelect.options).some((opt) => opt.value === queryDate)) {
+      dateSelect.value = queryDate;
+    }
+
+    dateSelect.addEventListener("change", applyDate);
+    applyDate();
+  };
+
+  initMainPageDateSelection();
+
   const revealTargets = document.querySelectorAll(".section, .panel, .stat, .course-card");
   revealTargets.forEach((node) => node.classList.add("will-reveal"));
 
