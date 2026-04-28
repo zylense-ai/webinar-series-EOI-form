@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="t d">
+  <title id="t">Tool Selection Matrix</title>
+  <desc id="d">Toolkit comparison visual</desc>
+  <defs>
+    <linearGradient id="g11" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#3e4666"/>
+      <stop offset="100%" stop-color="#d14a62"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="560" rx="28" fill="url(#g11)"/>
+  <rect x="112" y="96" width="736" height="368" rx="22" fill="#313957" fill-opacity="0.5"/>
+  <rect x="168" y="154" width="624" height="258" rx="16" fill="#fff" fill-opacity="0.2"/>
+  <path d="M168 220h624M168 286h624M168 352h624M324 154v258M480 154v258M636 154v258" stroke="#fff" stroke-opacity="0.45" stroke-width="4"/>
+  <circle cx="246" cy="253" r="12" fill="#fff"/>
+  <circle cx="402" cy="318" r="12" fill="#fff"/>
+  <circle cx="558" cy="253" r="12" fill="#fff"/>
+  <circle cx="714" cy="318" r="12" fill="#fff"/>
+</svg>

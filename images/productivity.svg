@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="t d">
+  <title id="t">Productivity Webinar Illustration</title>
+  <desc id="d">Illustration for productivity webinar</desc>
+  <defs>
+    <linearGradient id="bg5" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0f5132"/>
+      <stop offset="100%" stop-color="#84cc16"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="700" rx="36" fill="url(#bg5)"/>
+  <rect x="170" y="120" width="860" height="460" rx="30" fill="#113f2a" fill-opacity="0.53"/>
+  <circle cx="330" cy="330" r="120" fill="#fff" fill-opacity="0.24"/>
+  <circle cx="330" cy="330" r="82" fill="#fff" fill-opacity="0.75"/>
+  <line x1="330" y1="330" x2="330" y2="276" stroke="#0f5132" stroke-width="11" stroke-linecap="round"/>
+  <line x1="330" y1="330" x2="370" y2="348" stroke="#0f5132" stroke-width="11" stroke-linecap="round"/>
+  <rect x="520" y="250" width="410" height="36" rx="18" fill="#fff" fill-opacity="0.8"/>
+  <rect x="520" y="314" width="350" height="28" rx="14" fill="#fff" fill-opacity="0.6"/>
+  <rect x="520" y="364" width="280" height="28" rx="14" fill="#fff" fill-opacity="0.45"/>
+  <text x="220" y="194" fill="#fff" font-size="46" font-family="Arial, sans-serif" font-weight="700">AI Productivity</text>
+  <text x="220" y="532" fill="#efffcb" font-size="30" font-family="Arial, sans-serif">Plan better, execute faster, finish on time</text>
+</svg>

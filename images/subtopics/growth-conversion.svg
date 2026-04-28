@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="t d">
+  <title id="t">Conversion Optimization Visual</title>
+  <desc id="d">Conversion growth chart</desc>
+  <defs>
+    <linearGradient id="g14" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#8a3e15"/>
+      <stop offset="100%" stop-color="#e09422"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="560" rx="28" fill="url(#g14)"/>
+  <rect x="110" y="92" width="740" height="376" rx="22" fill="#703518" fill-opacity="0.45"/>
+  <rect x="170" y="158" width="620" height="280" rx="16" fill="#fff" fill-opacity="0.2"/>
+  <path d="M220 390l104-70 90 26 116-84 108 44 102-98" fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="734,188 778,208 744,240" fill="#fff"/>
+  <circle cx="220" cy="390" r="9" fill="#fff"/>
+  <circle cx="324" cy="320" r="9" fill="#fff"/>
+  <circle cx="414" cy="346" r="9" fill="#fff"/>
+  <circle cx="530" cy="262" r="9" fill="#fff"/>
+  <circle cx="638" cy="306" r="9" fill="#fff"/>
+</svg>

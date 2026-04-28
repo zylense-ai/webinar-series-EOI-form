@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="t d">
+  <title id="t">Toolkit ROI Visual</title>
+  <desc id="d">Return on investment graph visual</desc>
+  <defs>
+    <linearGradient id="g12" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#444a70"/>
+      <stop offset="100%" stop-color="#cb3f56"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="560" rx="28" fill="url(#g12)"/>
+  <rect x="110" y="92" width="740" height="376" rx="22" fill="#353a5f" fill-opacity="0.48"/>
+  <rect x="170" y="158" width="620" height="280" rx="16" fill="#fff" fill-opacity="0.2"/>
+  <polyline points="210,390 320,340 420,350 540,290 650,310 750,230" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="210" cy="390" r="9" fill="#fff"/>
+  <circle cx="320" cy="340" r="9" fill="#fff"/>
+  <circle cx="420" cy="350" r="9" fill="#fff"/>
+  <circle cx="540" cy="290" r="9" fill="#fff"/>
+  <circle cx="650" cy="310" r="9" fill="#fff"/>
+  <circle cx="750" cy="230" r="9" fill="#fff"/>
+</svg>

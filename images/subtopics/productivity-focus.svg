@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="t d">
+  <title id="t">Deep Focus System</title>
+  <desc id="d">Focus blocks visual</desc>
+  <defs>
+    <linearGradient id="g10" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#246f3b"/>
+      <stop offset="100%" stop-color="#9ac92e"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="560" rx="28" fill="url(#g10)"/>
+  <rect x="112" y="94" width="736" height="372" rx="22" fill="#1f5b33" fill-opacity="0.46"/>
+  <circle cx="286" cy="280" r="116" fill="#fff" fill-opacity="0.24"/>
+  <circle cx="286" cy="280" r="76" fill="#fff" fill-opacity="0.8"/>
+  <line x1="286" y1="280" x2="286" y2="236" stroke="#246f3b" stroke-width="10" stroke-linecap="round"/>
+  <line x1="286" y1="280" x2="328" y2="304" stroke="#246f3b" stroke-width="10" stroke-linecap="round"/>
+  <rect x="450" y="200" width="320" height="36" rx="10" fill="#fff" fill-opacity="0.73"/>
+  <rect x="450" y="258" width="270" height="28" rx="10" fill="#fff" fill-opacity="0.5"/>
+  <rect x="450" y="304" width="210" height="28" rx="10" fill="#fff" fill-opacity="0.38"/>
+</svg>
