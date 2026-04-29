@@ -504,6 +504,13 @@ h1 {
   line-height: 1.46;
 }
 
+.session-dates {
+  margin-top: 0.34rem;
+  font-size: 0.76rem;
+  color: #9fd2ff;
+  font-weight: 600;
+}
+
 .mini-meta {
   margin-top: 0.62rem;
   display: flex;
@@ -1145,6 +1152,14 @@ h1 {
     display: none;
   }
 
+  .theme-home .course-content p.session-dates {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.58rem;
+    line-height: 1.2;
+    color: #9fd2ff;
+  }
+
   .featured-quote {
     font-size: 0.9rem;
   }
@@ -1209,6 +1224,10 @@ h1 {
   .theme-home .course-content h3 {
     font-size: 0.6rem;
     min-height: 2.15em;
+  }
+
+  .theme-home .course-content p.session-dates {
+    font-size: 0.55rem;
   }
 }
 
