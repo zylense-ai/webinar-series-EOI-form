@@ -297,6 +297,29 @@ h1 {
   gap: 0.58rem;
 }
 
+.hero-register-link {
+  margin-top: 0.78rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #f4fbff;
+  font-weight: 800;
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  border-radius: 999px;
+  border: 1px solid rgba(195, 235, 255, 0.44);
+  padding: 0.56rem 0.9rem;
+  background: linear-gradient(120deg, rgba(44, 126, 255, 0.5), rgba(29, 204, 194, 0.35));
+  box-shadow: 0 12px 22px rgba(13, 36, 82, 0.28);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.hero-register-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 26px rgba(13, 36, 82, 0.36);
+}
+
 .badge {
   padding: 0.52rem 0.76rem;
   border-radius: 999px;
@@ -448,6 +471,23 @@ h1 {
   transition: transform 220ms ease, box-shadow 220ms ease;
 }
 
+.cta-row {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.cta-row .cta {
+  margin-top: 0;
+}
+
+.cta-secondary {
+  background: linear-gradient(122deg, rgba(10, 29, 66, 0.95), rgba(24, 88, 192, 0.94));
+  border-color: rgba(147, 201, 255, 0.52);
+}
+
 .cta:hover {
   transform: translateY(-2px) scale(1.01);
   box-shadow: 0 18px 30px rgba(28, 108, 229, 0.45);
@@ -569,6 +609,212 @@ h1 {
 
 .testimonials-shell {
   overflow: hidden;
+}
+
+.form-shell {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.reg-form {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.reg-grid {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.reg-field label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #a9c0e2;
+  font-weight: 800;
+}
+
+.reg-field input,
+.reg-field textarea {
+  width: 100%;
+  border: 1px solid rgba(163, 197, 244, 0.4);
+  border-radius: 12px;
+  background: linear-gradient(165deg, rgba(20, 36, 64, 0.92), rgba(16, 30, 54, 0.82));
+  color: #f0f7ff;
+  padding: 0.64rem 0.7rem;
+  font: inherit;
+  min-height: 44px;
+}
+
+.reg-field textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.reg-field input:focus,
+.reg-field textarea:focus {
+  outline: none;
+  border-color: rgba(104, 221, 209, 0.78);
+  box-shadow: 0 0 0 3px rgba(55, 159, 255, 0.18);
+}
+
+.reg-webinars {
+  border: 1px solid rgba(161, 194, 238, 0.34);
+  border-radius: 14px;
+  padding: 0.75rem;
+  background: linear-gradient(170deg, rgba(19, 35, 62, 0.88), rgba(13, 26, 48, 0.78));
+}
+
+.reg-webinars legend {
+  padding: 0 0.45rem;
+  color: #cde1ff;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 800;
+}
+
+.reg-check-grid {
+  margin-top: 0.45rem;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.reg-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  border: 1px solid rgba(163, 199, 246, 0.35);
+  border-radius: 10px;
+  padding: 0.48rem 0.52rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.reg-check input {
+  margin-top: 0.18rem;
+}
+
+.reg-check span {
+  font-size: 0.8rem;
+  color: #d8e8ff;
+  line-height: 1.35;
+}
+
+.reg-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.reg-submit {
+  border: 1px solid rgba(180, 220, 255, 0.42);
+  border-radius: 999px;
+  padding: 0.7rem 1.05rem;
+  color: #f9feff;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  background: linear-gradient(122deg, var(--theme-a), var(--theme-b), var(--theme-c));
+  box-shadow: 0 12px 24px rgba(28, 108, 229, 0.33);
+  cursor: pointer;
+}
+
+.reg-status {
+  display: none;
+  font-size: 0.84rem;
+  border-radius: 999px;
+  padding: 0.42rem 0.72rem;
+  font-weight: 700;
+}
+
+.reg-status.ok {
+  background: rgba(25, 178, 122, 0.18);
+  border: 1px solid rgba(95, 233, 178, 0.44);
+  color: #a7ffd8;
+}
+
+.reg-status.err {
+  background: rgba(220, 38, 38, 0.15);
+  border: 1px solid rgba(253, 153, 153, 0.45);
+  color: #ffd0d0;
+}
+
+.reg-dates-block {
+  margin-top: 0.75rem;
+  border: 1px solid rgba(138, 182, 240, 0.33);
+  border-radius: 14px;
+  padding: 0.72rem;
+  background: linear-gradient(165deg, rgba(17, 31, 56, 0.9), rgba(12, 24, 43, 0.8));
+  display: none;
+}
+
+.reg-dates-block h3 {
+  margin: 0 0 0.58rem;
+  color: #d7e8ff;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.reg-dates-wrap {
+  display: grid;
+  gap: 0.58rem;
+}
+
+.reg-date-card {
+  border: 1px solid rgba(163, 199, 246, 0.34);
+  border-radius: 11px;
+  padding: 0.52rem 0.58rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.reg-date-card h4 {
+  margin: 0;
+  color: #e4f0ff;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.reg-date-fee {
+  margin: 0.24rem 0 0.42rem;
+  color: #90f5ca;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.reg-date-options {
+  display: grid;
+  gap: 0.34rem;
+}
+
+.reg-date-option {
+  display: flex;
+  align-items: center;
+  gap: 0.46rem;
+  border: 1px solid rgba(161, 194, 238, 0.34);
+  border-radius: 9px;
+  padding: 0.34rem 0.42rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.reg-date-option input {
+  margin: 0;
+}
+
+.reg-date-option span {
+  font-size: 0.78rem;
+  color: #d8e8ff;
+}
+
+.reg-total-line {
+  margin: 0.68rem 0 0;
+  color: #8ce7ff;
+  font-size: 0.84rem;
+  font-weight: 800;
 }
 
 .featured-testimonial {
@@ -784,6 +1030,12 @@ h1 {
   .theme-home .badge {
     font-size: 0.67rem;
     padding: 0.34rem 0.48rem;
+  }
+
+  .theme-home .hero-register-link {
+    margin-top: 0.44rem;
+    font-size: 0.64rem;
+    padding: 0.35rem 0.56rem;
   }
 
   .theme-home .section {
@@ -1170,6 +1422,11 @@ h1 {
 
   .t-card p {
     font-size: 0.78rem;
+  }
+
+  .reg-grid,
+  .reg-check-grid {
+    grid-template-columns: 1fr;
   }
 }
 

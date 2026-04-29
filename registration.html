@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Webinar Registration</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-home">
+  <main class="layout reveal">
+    <a class="home-link" href="index.html">&larr; Back to webinars</a>
+
+    <header class="hero-panel">
+      <div class="hero-copy">
+        <p class="tag">Reserve Your Spot</p>
+        <h1>AI Webinar Series Registration</h1>
+        <p class="lead">Choose one or more webinars and submit your details. We will share your session access and updates by email.</p>
+        <div class="badge-row">
+          <span class="badge">7 Webinar Topics</span>
+          <span class="badge">2 Session Dates Per Topic</span>
+          <span class="badge">Choose any one session that is easy for you</span>
+          <span class="badge">Limited Seats Available</span>
+        </div>
+        <a class="hero-register-link" href="#eoi-form">Go to Registration Form</a>
+      </div>
+      <div class="hero-media">
+        <img src="images/ai-agent.svg" alt="AI webinar registration visual">
+      </div>
+    </header>
+
+    <section class="section card-surface form-shell" id="eoi-form">
+      <h2>Reserve Your Spot</h2>
+      <p class="lead">Complete the form and pick your webinar topics.</p>
+
+      <form id="leadForm" class="reg-form" novalidate>
+        <div class="reg-grid">
+          <div class="reg-field">
+            <label for="fullName">Full Name</label>
+            <input id="fullName" name="fullName" type="text" autocomplete="name" required>
+          </div>
+          <div class="reg-field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </div>
+        </div>
+
+        <div class="reg-grid">
+          <div class="reg-field">
+            <label for="phone">Phone Number</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" required>
+          </div>
+          <div class="reg-field">
+            <label for="company">Company / Organization</label>
+            <input id="company" name="company" type="text" autocomplete="organization">
+          </div>
+        </div>
+
+        <div class="reg-field">
+          <label for="notes">Notes (Optional)</label>
+          <textarea id="notes" name="notes" rows="3" placeholder="Share your goals or questions for these sessions..."></textarea>
+        </div>
+
+        <fieldset class="reg-webinars">
+          <legend>Select Webinar(s)</legend>
+          <div class="reg-check-grid">
+            <label class="reg-check">
+              <input class="webinar-check" data-webinar="ChatGPT Unlocked: From Zero to Daily Use in 90 Minutes" type="checkbox">
+              <span>ChatGPT Unlocked: From Zero to Daily Use in 90 Minutes</span>
+            </label>
+            <label class="reg-check">
+              <input class="webinar-check" data-webinar="Build Your First AI Employee: No-Code AI Agents That Work 24/7" type="checkbox">
+              <span>Build Your First AI Employee: No-Code AI Agents That Work 24/7</span>
+            </label>
+            <label class="reg-check">
+              <input class="webinar-check" data-webinar="Create Studio-Quality Content with AI: Images and Videos in Minutes" type="checkbox">
+              <span>Create Studio-Quality Content with AI: Images and Videos in Minutes</span>
+            </label>
+            <label class="reg-check">
+              <input class="webinar-check" data-webinar="Automate Your Business: AI Workflows That Save Time and Money" type="checkbox">
+              <span>Automate Your Business: AI Workflows That Save Time and Money</span>
+            </label>
+            <label class="reg-check">
+              <input class="webinar-check" data-webinar="10X Your Day with AI: Personal Productivity Hacks That Actually Work" type="checkbox">
+              <span>10X Your Day with AI: Personal Productivity Hacks That Actually Work</span>
+            </label>
+            <label class="reg-check">
+              <input class="webinar-check" data-webinar="The Ultimate AI Toolkit: 25 Tools to Run a Smarter Business" type="checkbox">
+              <span>The Ultimate AI Toolkit: 25 Tools to Run a Smarter Business</span>
+            </label>
+            <label class="reg-check">
+              <input class="webinar-check" data-webinar="AI Growth Engine: Generate Leads, Content and Conversions on Autopilot" type="checkbox">
+              <span>AI Growth Engine: Generate Leads, Content and Conversions on Autopilot</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <p id="selectionError" class="reg-status err">Please select at least one webinar.</p>
+        <p id="dateSelectionError" class="reg-status err">Please choose one date for each selected webinar.</p>
+
+        <section id="dateSelectionBlock" class="reg-dates-block" aria-live="polite">
+          <h3>Choose Session Date for Each Selected Webinar</h3>
+          <div id="dateSelectionWrap" class="reg-dates-wrap"></div>
+          <p id="totalAmountLine" class="reg-total-line">Total Payable: ₹0</p>
+        </section>
+
+        <div class="reg-actions">
+          <button class="reg-submit" type="submit">Reserve My Spot</button>
+          <p id="successMessage" class="reg-status ok">Success! Your registration is submitted.</p>
+          <p id="submitError" class="reg-status err">Submission failed. Please try again.</p>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const scriptUrl = "https://script.google.com/macros/s/AKfycbyWRNWWhtVElJ0ljsvTj11N5KE_sQ-CRguomTR8bUtSe-VMOjG3K0Xv1o9I_b7SxeI/exec";
+    const webinarChecks = Array.from(document.querySelectorAll(".webinar-check"));
+    const leadForm = document.getElementById("leadForm");
+    const submitButton = leadForm.querySelector('button[type="submit"]');
+    const selectionError = document.getElementById("selectionError");
+    const dateSelectionError = document.getElementById("dateSelectionError");
+    const successMessage = document.getElementById("successMessage");
+    const submitError = document.getElementById("submitError");
+    const dateSelectionBlock = document.getElementById("dateSelectionBlock");
+    const dateSelectionWrap = document.getElementById("dateSelectionWrap");
+    const totalAmountLine = document.getElementById("totalAmountLine");
+
+    const WEBINAR_CONFIG = {
+      "ChatGPT Unlocked: From Zero to Daily Use in 90 Minutes": {
+        price: 99,
+        dates: ["May 10, 2026 — 11:00 AM", "May 24, 2026 — 11:00 AM"]
+      },
+      "Build Your First AI Employee: No-Code AI Agents That Work 24/7": {
+        price: 999,
+        dates: ["May 17, 2026 — 11:00 AM", "May 31, 2026 — 11:00 AM"]
+      },
+      "Create Studio-Quality Content with AI: Images and Videos in Minutes": {
+        price: 499,
+        dates: ["May 07, 2026 — 11:00 AM", "May 23, 2026 — 11:00 AM"]
+      },
+      "Automate Your Business: AI Workflows That Save Time and Money": {
+        price: 999,
+        dates: ["May 17, 2026 — 4:00 PM", "May 31, 2026 — 4:00 PM"]
+      },
+      "10X Your Day with AI: Personal Productivity Hacks That Actually Work": {
+        price: 699,
+        dates: ["May 16, 2026 — 11:00 AM", "May 30, 2026 — 11:00 AM"]
+      },
+      "The Ultimate AI Toolkit: 25 Tools to Run a Smarter Business": {
+        price: 299,
+        dates: ["May 10, 2026 — 4:00 PM", "May 24, 2026 — 4:00 PM"]
+      },
+      "AI Growth Engine: Generate Leads, Content and Conversions on Autopilot": {
+        price: 999,
+        dates: ["May 17, 2026 — 4:00 PM", "May 31, 2026 — 4:00 PM"]
+      }
+    };
+
+    const selectedDateMap = {};
+
+    function getSelectedWebinars() {
+      const selected = new Set();
+      webinarChecks.forEach((input) => {
+        if (input.checked && input.dataset.webinar) {
+          selected.add(input.dataset.webinar);
+        }
+      });
+      return Array.from(selected);
+    }
+
+    function setSubmittingState(isSubmitting) {
+      submitButton.disabled = isSubmitting;
+      submitButton.textContent = isSubmitting ? "Submitting..." : "Reserve My Spot";
+    }
+
+    function hideMessages() {
+      selectionError.style.display = "none";
+      dateSelectionError.style.display = "none";
+      successMessage.style.display = "none";
+      submitError.style.display = "none";
+    }
+
+    function webinarKey(text) {
+      return String(text || "").replace(/[^a-zA-Z0-9]+/g, "_");
+    }
+
+    function renderDateSelection() {
+      const selectedWebinars = getSelectedWebinars();
+      if (selectedWebinars.length === 0) {
+        dateSelectionBlock.style.display = "none";
+        dateSelectionWrap.innerHTML = "";
+        totalAmountLine.textContent = "Total Payable: ₹0";
+        return;
+      }
+
+      dateSelectionBlock.style.display = "block";
+      dateSelectionWrap.innerHTML = selectedWebinars.map((webinar) => {
+        const config = WEBINAR_CONFIG[webinar] || { price: 599, dates: ["May 30, 2026", "June 01, 2026"] };
+        const key = webinarKey(webinar);
+        const selectedDate = selectedDateMap[webinar] || "";
+
+        const optionsHtml = config.dates.map((dateLabel, idx) => `
+          <label class="reg-date-option">
+            <input type="radio" name="sessionDate_${key}" value="${dateLabel}" ${selectedDate === dateLabel ? "checked" : ""}>
+            <span>Option ${idx + 1}: ${dateLabel}</span>
+          </label>
+        `).join("");
+
+        return `
+          <article class="reg-date-card">
+            <h4>${webinar}</h4>
+            <p class="reg-date-fee">Fee: ₹${config.price}</p>
+            <div class="reg-date-options">${optionsHtml}</div>
+          </article>
+        `;
+      }).join("");
+
+      dateSelectionWrap.querySelectorAll('input[type="radio"]').forEach((input) => {
+        input.addEventListener("change", () => {
+          const card = input.closest(".reg-date-card");
+          const titleEl = card ? card.querySelector("h4") : null;
+          if (titleEl) {
+            selectedDateMap[titleEl.textContent] = input.value;
+          }
+          updateTotalAmount();
+          hideMessages();
+        });
+      });
+
+      updateTotalAmount();
+    }
+
+    function getDateSelectionDetails(selectedWebinars) {
+      let totalAmount = 0;
+      const dateRows = [];
+      let valid = true;
+
+      selectedWebinars.forEach((webinar) => {
+        const config = WEBINAR_CONFIG[webinar] || { price: 599, dates: [] };
+        totalAmount += Number(config.price || 0);
+
+        const selectedDate = selectedDateMap[webinar] || "";
+        if (!selectedDate) {
+          valid = false;
+        } else {
+          dateRows.push(`${webinar} -> ${selectedDate}`);
+        }
+      });
+
+      return {
+        valid,
+        totalAmount,
+        selectedDatesText: dateRows.join(" | ")
+      };
+    }
+
+    function updateTotalAmount() {
+      const selectedWebinars = getSelectedWebinars();
+      if (selectedWebinars.length === 0) {
+        totalAmountLine.textContent = "Total Payable: ₹0";
+        return;
+      }
+      const { totalAmount } = getDateSelectionDetails(selectedWebinars);
+      totalAmountLine.textContent = `Total Payable: ₹${totalAmount}`;
+    }
+
+    function postToGoogleSheet(data) {
+      return new Promise((resolve, reject) => {
+        let frame = document.getElementById("gsheetSubmitFrame");
+        if (!frame) {
+          frame = document.createElement("iframe");
+          frame.id = "gsheetSubmitFrame";
+          frame.name = "gsheetSubmitFrame";
+          frame.style.display = "none";
+          document.body.appendChild(frame);
+        }
+
+        const hiddenForm = document.createElement("form");
+        hiddenForm.method = "POST";
+        hiddenForm.action = scriptUrl;
+        hiddenForm.target = "gsheetSubmitFrame";
+        hiddenForm.style.display = "none";
+
+        Object.entries(data).forEach(([key, value]) => {
+          const field = document.createElement("input");
+          field.type = "hidden";
+          field.name = key;
+          field.value = value;
+          hiddenForm.appendChild(field);
+        });
+
+        let resolved = false;
+        const finish = () => {
+          if (resolved) return;
+          resolved = true;
+          try { hiddenForm.remove(); } catch (_) {}
+          resolve();
+        };
+
+        // Resolve once iframe receives response from Apps Script.
+        const onFrameLoad = () => {
+          frame.removeEventListener("load", onFrameLoad);
+          finish();
+        };
+        frame.addEventListener("load", onFrameLoad, { once: true });
+
+        document.body.appendChild(hiddenForm);
+        hiddenForm.submit();
+
+        // Fallback resolve even if iframe load is blocked by browser policy.
+        setTimeout(() => {
+          frame.removeEventListener("load", onFrameLoad);
+          finish();
+        }, 1800);
+      });
+    }
+
+    webinarChecks.forEach((input) => {
+      input.addEventListener("change", () => {
+        if (!input.checked && input.dataset.webinar) {
+          delete selectedDateMap[input.dataset.webinar];
+        }
+        hideMessages();
+        renderDateSelection();
+      });
+    });
+
+    leadForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      hideMessages();
+
+      if (!leadForm.checkValidity()) {
+        leadForm.reportValidity();
+        return;
+      }
+
+      const selectedWebinars = getSelectedWebinars();
+      if (selectedWebinars.length === 0) {
+        selectionError.style.display = "inline-block";
+        return;
+      }
+
+      const dateInfo = getDateSelectionDetails(selectedWebinars);
+      if (!dateInfo.valid) {
+        dateSelectionError.style.display = "inline-block";
+        return;
+      }
+
+      setSubmittingState(true);
+
+      const fullName = document.getElementById("fullName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const company = document.getElementById("company").value.trim();
+      const notes = document.getElementById("notes").value.trim();
+      const selectedWebinarsText = selectedWebinars.join(" | ");
+      const selectedDatesText = dateInfo.selectedDatesText;
+      const totalAmount = dateInfo.totalAmount;
+
+      const payload = {
+        "full name": fullName,
+        "Email Address": email,
+        "Company / Organization": company,
+        "Phone Number": phone,
+        "Select Webinar(s)": selectedWebinarsText,
+        "Selected Session Dates": selectedDatesText,
+        "Total Amount": totalAmount,
+        "Notes (Optional)": notes,
+        fullName,
+        email,
+        company,
+        phone,
+        selectedWebinars: selectedWebinarsText,
+        selectedDates: selectedDatesText,
+        totalAmount: totalAmount,
+        notes,
+        submittedAt: new Date().toISOString()
+      };
+
+      try {
+        await postToGoogleSheet(payload);
+        const params = new URLSearchParams({
+          amount: String(totalAmount),
+          webinars: selectedWebinarsText,
+          dates: selectedDatesText,
+          name: fullName
+        });
+        window.location.href = `payment-qr.html?${params.toString()}`;
+      } catch (error) {
+        submitError.style.display = "inline-block";
+      } finally {
+        setSubmittingState(false);
+      }
+    });
+
+    renderDateSelection();
+  </script>
+  <script src="ui-effects.js"></script>
+</body>
+</html>

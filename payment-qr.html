@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment QR</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .payment-shell {
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 18px;
+    }
+
+    .payment-shell h1 {
+      margin-bottom: 8px;
+    }
+
+    .payment-qr {
+      width: 100%;
+      max-width: 430px;
+      border-radius: 18px;
+      border: 1px solid rgba(132, 181, 255, 0.45);
+      box-shadow: 0 14px 34px rgba(18, 72, 150, 0.25);
+      background: #fff;
+      display: block;
+      margin: 16px auto 8px auto;
+    }
+
+    .payment-note {
+      margin: 0 0 12px 0;
+      color: #c5d9ff;
+    }
+
+    .payable-line {
+      margin: 8px 0 10px 0;
+      color: #8ff9ca;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+
+    .payment-meta {
+      margin: 8px 0 0 0;
+      color: #d6e7ff;
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
+
+    .pay-btn-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    #paidMessage {
+      margin-top: 16px;
+      display: none;
+      font-weight: 700;
+      color: #7bf1a8;
+      background: rgba(17, 100, 62, 0.24);
+      border: 1px solid rgba(123, 241, 168, 0.4);
+      border-radius: 12px;
+      padding: 10px 14px;
+    }
+  </style>
+</head>
+<body class="theme-home">
+  <main class="layout reveal">
+    <a class="home-link" href="registration.html">&larr; Back to registration</a>
+
+    <section class="section card-surface payment-shell">
+      <h1>Complete Payment</h1>
+      <p class="payment-note">Scan this QR code to pay and then click the button below.</p>
+      <p id="payableLine" class="payable-line">Please pay ₹0</p>
+      <p id="paymentMeta" class="payment-meta"></p>
+
+      <img class="payment-qr" src="payment-qr.jpeg" alt="Payment QR Code">
+
+      <div class="pay-btn-wrap">
+        <button id="paidButton" class="reg-submit" type="button">Payed</button>
+      </div>
+
+      <p id="paidMessage">You have registered successfully thank you.</p>
+    </section>
+  </main>
+
+  <script>
+    const paidButton = document.getElementById("paidButton");
+    const paidMessage = document.getElementById("paidMessage");
+    const payableLine = document.getElementById("payableLine");
+    const paymentMeta = document.getElementById("paymentMeta");
+
+    const params = new URLSearchParams(window.location.search);
+    const amount = params.get("amount") || "0";
+    const webinars = params.get("webinars") || "";
+    const dates = params.get("dates") || "";
+
+    payableLine.textContent = `Please pay ₹${amount}`;
+    if (webinars || dates) {
+      const webinarText = webinars ? webinars.split(" | ").join(", ") : "N/A";
+      const dateText = dates ? dates.split(" | ").join(" | ") : "N/A";
+      paymentMeta.innerHTML = `<b>Selected Webinar(s):</b> ${webinarText}<br><b>Selected Date(s):</b> ${dateText}`;
+    }
+
+    paidButton.addEventListener("click", () => {
+      paidButton.disabled = true;
+      paidButton.textContent = "Payment Confirmed";
+      paidMessage.style.display = "block";
+    });
+  </script>
+  <script src="ui-effects.js"></script>
+</body>
+</html>
