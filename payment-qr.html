@@ -117,6 +117,15 @@
       payNowButton.textContent = "Pay Now";
     }
 
+    async function readApiResponse(response) {
+      const raw = await response.text();
+      try {
+        return { data: JSON.parse(raw), raw };
+      } catch (_) {
+        return { data: null, raw };
+      }
+    }
+
     async function createOrder() {
       const response = await fetch("/api/create-order", {
         method: "POST",
@@ -130,10 +139,14 @@
         })
       });
 
-      const data = await response.json();
+      const { data, raw } = await readApiResponse(response);
 
       if (!response.ok) {
-        throw new Error(data.error || "Could not create order");
+        throw new Error(data?.error || raw || "Could not create order");
+      }
+
+      if (!data) {
+        throw new Error("Invalid response from create-order API");
       }
 
       return data;
@@ -148,10 +161,14 @@
         body: JSON.stringify(paymentData)
       });
 
-      const data = await response.json();
+      const { data, raw } = await readApiResponse(response);
 
       if (!response.ok) {
-        throw new Error(data.error || "Payment verification failed");
+        throw new Error(data?.error || raw || "Payment verification failed");
+      }
+
+      if (!data) {
+        throw new Error("Invalid response from verify-payment API");
       }
 
       return data;
