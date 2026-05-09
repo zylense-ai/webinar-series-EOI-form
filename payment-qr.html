@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Payment QR</title>
+  <title>Payment Checkout</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     .payment-shell {
@@ -15,17 +15,6 @@
 
     .payment-shell h1 {
       margin-bottom: 8px;
-    }
-
-    .payment-qr {
-      width: 100%;
-      max-width: 430px;
-      border-radius: 18px;
-      border: 1px solid rgba(132, 181, 255, 0.45);
-      box-shadow: 0 14px 34px rgba(18, 72, 150, 0.25);
-      background: #fff;
-      display: block;
-      margin: 16px auto 8px auto;
     }
 
     .payment-note {
@@ -54,6 +43,13 @@
       margin-top: 12px;
     }
 
+    #paymentStatus {
+      margin-top: 14px;
+      color: #ffd9a8;
+      display: none;
+      font-weight: 600;
+    }
+
     #paidMessage {
       margin-top: 16px;
       display: none;
@@ -72,42 +68,159 @@
 
     <section class="section card-surface payment-shell">
       <h1>Complete Payment</h1>
-      <p class="payment-note">Scan this QR code to pay and then click the button below.</p>
-      <p id="payableLine" class="payable-line">Please pay ₹0</p>
+      <p class="payment-note">Click Pay Now to pay securely via Razorpay.</p>
+      <p id="payableLine" class="payable-line">Please pay Rs 0</p>
       <p id="paymentMeta" class="payment-meta"></p>
 
-      <img class="payment-qr" src="payment-qr.jpeg" alt="Payment QR Code">
-
       <div class="pay-btn-wrap">
-        <button id="paidButton" class="reg-submit" type="button">Payed</button>
+        <button id="payNowButton" class="reg-submit" type="button">Pay Now</button>
       </div>
 
-      <p id="paidMessage">You have registered successfully thank you.</p>
+      <p id="paymentStatus"></p>
+      <p id="paidMessage">Payment successful. You have registered successfully. Thank you.</p>
     </section>
   </main>
 
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script>
-    const paidButton = document.getElementById("paidButton");
-    const paidMessage = document.getElementById("paidMessage");
+    const payNowButton = document.getElementById("payNowButton");
     const payableLine = document.getElementById("payableLine");
     const paymentMeta = document.getElementById("paymentMeta");
+    const paymentStatus = document.getElementById("paymentStatus");
+    const paidMessage = document.getElementById("paidMessage");
 
     const params = new URLSearchParams(window.location.search);
-    const amount = params.get("amount") || "0";
+    const amount = Number(params.get("amount") || 0);
     const webinars = params.get("webinars") || "";
     const dates = params.get("dates") || "";
+    const name = params.get("name") || "";
+    const email = params.get("email") || "";
+    const phone = params.get("phone") || "";
 
-    payableLine.textContent = `Please pay ₹${amount}`;
+    const amountInPaise = Math.round(amount * 100);
+
+    payableLine.textContent = `Please pay Rs ${amount}`;
+
     if (webinars || dates) {
       const webinarText = webinars ? webinars.split(" | ").join(", ") : "N/A";
       const dateText = dates ? dates.split(" | ").join(" | ") : "N/A";
       paymentMeta.innerHTML = `<b>Selected Webinar(s):</b> ${webinarText}<br><b>Selected Date(s):</b> ${dateText}`;
     }
 
-    paidButton.addEventListener("click", () => {
-      paidButton.disabled = true;
-      paidButton.textContent = "Payment Confirmed";
-      paidMessage.style.display = "block";
+    function setStatus(message) {
+      paymentStatus.textContent = message;
+      paymentStatus.style.display = "block";
+    }
+
+    function resetButton() {
+      payNowButton.disabled = false;
+      payNowButton.textContent = "Pay Now";
+    }
+
+    async function createOrder() {
+      const response = await fetch("/api/create-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          amount: amountInPaise,
+          currency: "INR",
+          receipt: `webinar_${Date.now()}`
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Could not create order");
+      }
+
+      return data;
+    }
+
+    async function verifyPayment(paymentData) {
+      const response = await fetch("/api/verify-payment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(paymentData)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Payment verification failed");
+      }
+
+      return data;
+    }
+
+    payNowButton.addEventListener("click", async () => {
+      paidMessage.style.display = "none";
+      paymentStatus.style.display = "none";
+
+      if (amountInPaise < 100) {
+        setStatus("Amount must be at least 100 paise (Rs 1). Please go back and update selection.");
+        return;
+      }
+
+      if (typeof window.Razorpay === "undefined") {
+        setStatus("Razorpay checkout failed to load. Please refresh and try again.");
+        return;
+      }
+
+      payNowButton.disabled = true;
+      payNowButton.textContent = "Opening Checkout...";
+
+      try {
+        const order = await createOrder();
+
+        const options = {
+          key: order.key_id,
+          amount: order.amount,
+          currency: order.currency,
+          name: "AI Webinar Series",
+          description: "Webinar registration payment",
+          order_id: order.order_id,
+          prefill: {
+            name,
+            email,
+            contact: phone
+          },
+          handler: async (response) => {
+            try {
+              await verifyPayment(response);
+              payNowButton.textContent = "Payment Successful";
+              setStatus("Payment verified successfully.");
+              paidMessage.style.display = "block";
+            } catch (error) {
+              resetButton();
+              setStatus(error.message || "Payment verification failed.");
+            }
+          },
+          modal: {
+            ondismiss: () => {
+              resetButton();
+              setStatus("Payment cancelled. You can try again.");
+            }
+          }
+        };
+
+        const rzp = new window.Razorpay(options);
+
+        rzp.on("payment.failed", (response) => {
+          resetButton();
+          const description = response?.error?.description || "Payment failed. Please try again.";
+          setStatus(description);
+        });
+
+        rzp.open();
+      } catch (error) {
+        resetButton();
+        setStatus(error.message || "Unable to start payment.");
+      }
     });
   </script>
   <script src="ui-effects.js"></script>

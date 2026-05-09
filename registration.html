@@ -384,7 +384,9 @@
           amount: String(totalAmount),
           webinars: selectedWebinarsText,
           dates: selectedDatesText,
-          name: fullName
+          name: fullName,
+          email,
+          phone
         });
         window.location.href = `payment-qr.html?${params.toString()}`;
       } catch (error) {
