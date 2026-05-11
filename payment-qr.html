@@ -83,6 +83,8 @@
 
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script>
+    const scriptUrl = "https://script.google.com/macros/s/AKfycbyWRNWWhtVElJ0ljsvTj11N5KE_sQ-CRguomTR8bUtSe-VMOjG3K0Xv1o9I_b7SxeI/exec";
+    const REGISTRATION_STORAGE_KEY = "pendingRegistrationPayload";
     const payNowButton = document.getElementById("payNowButton");
     const payableLine = document.getElementById("payableLine");
     const paymentMeta = document.getElementById("paymentMeta");
@@ -115,6 +117,67 @@
     function resetButton() {
       payNowButton.disabled = false;
       payNowButton.textContent = "Pay Now";
+    }
+
+    function getPendingRegistrationPayload() {
+      const storedPayload = sessionStorage.getItem(REGISTRATION_STORAGE_KEY);
+      if (!storedPayload) return null;
+
+      try {
+        const parsed = JSON.parse(storedPayload);
+        return parsed && typeof parsed === "object" ? parsed : null;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function postToGoogleSheet(data) {
+      return new Promise((resolve) => {
+        let frame = document.getElementById("gsheetSubmitFrame");
+        if (!frame) {
+          frame = document.createElement("iframe");
+          frame.id = "gsheetSubmitFrame";
+          frame.name = "gsheetSubmitFrame";
+          frame.style.display = "none";
+          document.body.appendChild(frame);
+        }
+
+        const hiddenForm = document.createElement("form");
+        hiddenForm.method = "POST";
+        hiddenForm.action = scriptUrl;
+        hiddenForm.target = "gsheetSubmitFrame";
+        hiddenForm.style.display = "none";
+
+        Object.entries(data).forEach(([key, value]) => {
+          const field = document.createElement("input");
+          field.type = "hidden";
+          field.name = key;
+          field.value = value;
+          hiddenForm.appendChild(field);
+        });
+
+        let resolved = false;
+        const finish = () => {
+          if (resolved) return;
+          resolved = true;
+          try { hiddenForm.remove(); } catch (_) {}
+          resolve();
+        };
+
+        const onFrameLoad = () => {
+          frame.removeEventListener("load", onFrameLoad);
+          finish();
+        };
+        frame.addEventListener("load", onFrameLoad, { once: true });
+
+        document.body.appendChild(hiddenForm);
+        hiddenForm.submit();
+
+        setTimeout(() => {
+          frame.removeEventListener("load", onFrameLoad);
+          finish();
+        }, 1800);
+      });
     }
 
     async function readApiResponse(response) {
@@ -183,6 +246,11 @@
         return;
       }
 
+      if (!getPendingRegistrationPayload()) {
+        setStatus("Registration details are missing. Please go back and submit the form again.");
+        return;
+      }
+
       if (typeof window.Razorpay === "undefined") {
         setStatus("Razorpay checkout failed to load. Please refresh and try again.");
         return;
@@ -209,8 +277,16 @@
           handler: async (response) => {
             try {
               await verifyPayment(response);
+              const registrationPayload = getPendingRegistrationPayload();
+              if (!registrationPayload) {
+                throw new Error("Payment succeeded, but registration details are missing. Contact support.");
+              }
+
+              await postToGoogleSheet(registrationPayload);
+              sessionStorage.removeItem(REGISTRATION_STORAGE_KEY);
+
               payNowButton.textContent = "Payment Successful";
-              setStatus("Payment verified successfully.");
+              setStatus("Payment verified and registration submitted successfully.");
               paidMessage.style.display = "block";
             } catch (error) {
               resetButton();
